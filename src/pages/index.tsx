@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import axios from "axios";
 
@@ -27,7 +26,12 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/libro/librito', formData);
+      // Convertir numcopia a entero antes de enviarlo
+      const formDataWithNumcopia = {
+        ...formData,
+        numcopia: parseInt(formData.numcopia as unknown as string, 10)
+      };
+      const response = await axios.post('/api/libro/librito', formDataWithNumcopia);
       setFormData({
         titulo: '',
         autor: '',
